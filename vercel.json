@@ -31,7 +31,7 @@
       "src": "/api", 
       "dest": "/api/index.js" 
     },
-    {  // नया जोड़ें - 404 हैंडलिंग
+    { 
       "src": "/(.*)", 
       "status": 404,
       "dest": "/api/404.js"
