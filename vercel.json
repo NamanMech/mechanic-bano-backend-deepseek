@@ -1,40 +1,60 @@
 {
   "version": 2,
-  "builds": [ 
+  "builds": [
     {
       "src": "api/**/*.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
-    { 
-      "src": "/api/general", 
+    {
+      "src": "/api/general",
       "dest": "/api/general.js",
-      "methods": ["GET", "POST"] 
+      "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
     },
-    { 
-      "src": "/api/subscription", 
+    {
+      "src": "/api/subscription",
       "dest": "/api/subscription.js",
-      "methods": ["GET", "POST", "DELETE"] 
+      "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
     },
-    { 
-      "src": "/api/user", 
+    {
+      "src": "/api/user",
       "dest": "/api/users.js",
-      "methods": ["GET", "PUT", "DELETE"] 
+      "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
     },
-    { 
-      "src": "/api/blobUpload", 
+    {
+      "src": "/api/welcome",
+      "dest": "/api/welcome.js",
+      "methods": ["GET", "POST", "PUT", "OPTIONS"]
+    },
+    {
+      "src": "/api/blobUpload",
       "dest": "/api/blobUpload.js",
-      "methods": ["POST"]  
+      "methods": ["POST", "OPTIONS"]
     },
-    { 
-      "src": "/api", 
-      "dest": "/api/index.js" 
+    {
+      "src": "/api",
+      "dest": "/api/index.js",
+      "methods": ["GET", "OPTIONS"]
     },
-    { 
-      "src": "/(.*)", 
+    {
+      "src": "/(.*)",
       "status": 404,
       "dest": "/api/404.js"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "Referrer-Policy", "value": "same-origin" },
+        { 
+          "key": "Content-Security-Policy", 
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;" 
+        }
+      ]
     }
   ]
 }
