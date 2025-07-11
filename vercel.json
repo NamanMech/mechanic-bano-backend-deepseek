@@ -1,0 +1,40 @@
+{
+  "version": 2,
+  "builds": [ 
+    {
+      "src": "api/**/*.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    { 
+      "src": "/api/general", 
+      "dest": "/api/general.js",
+      "methods": ["GET", "POST"] 
+    },
+    { 
+      "src": "/api/subscription", 
+      "dest": "/api/subscription.js",
+      "methods": ["GET", "POST", "DELETE"] 
+    },
+    { 
+      "src": "/api/user", 
+      "dest": "/api/users.js",
+      "methods": ["GET", "PUT", "DELETE"] 
+    },
+    { 
+      "src": "/api/blobUpload", 
+      "dest": "/api/blobUpload.js",
+      "methods": ["POST"]  
+    },
+    { 
+      "src": "/api", 
+      "dest": "/api/index.js" 
+    },
+    {  // नया जोड़ें - 404 हैंडलिंग
+      "src": "/(.*)", 
+      "status": 404,
+      "dest": "/api/404.js"
+    }
+  ]
+}
